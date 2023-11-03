@@ -1,11 +1,8 @@
 import pygame
 
 pygame.init()
-x=1280
-y=720
-
-screen = pygame.display.set_mode((x,y))
-pygame.display.set_caption("warna bergerak")
+screen = pygame.display.set_mode((1280,720))
+pygame.display.set_caption("nama game")
 
 dx = 20
 dy = 20
@@ -25,13 +22,13 @@ while isRun:
     
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_UP]:
+    if keys[pygame.K_UP] and dy > 5:
         dy -= move
-    if keys[pygame.K_DOWN]:
+    if keys[pygame.K_DOWN] and dy < (715 - height):
         dy += move
-    if keys[pygame.K_LEFT]:
+    if keys[pygame.K_LEFT] and dx > 5:
         dx -= move
-    if keys[pygame.K_RIGHT]:
+    if keys[pygame.K_RIGHT] and dx < (1275 - width):
         dx += move
     
     
