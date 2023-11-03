@@ -10,6 +10,8 @@ width = 50
 height = 50
 move = 6
 
+
+
 isRun = True
 while isRun:
     pygame.time.delay(20)
@@ -30,6 +32,8 @@ while isRun:
         dx -= move
     if keys[pygame.K_RIGHT] and dx < (1275 - width):
         dx += move
+    if keys[pygame.K_SPACE]:
+        isJump = True
     
     
     pygame.draw.rect(screen, (255, 0, 0), (dx, dy, width, height))
