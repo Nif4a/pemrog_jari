@@ -32,7 +32,10 @@ def cekpecah(player):
     elif x%2 == 0 and y == 0:
         return True
     else:
-        print("jari berjumlah ganjil / salah satu tangan tidak 0")
+        if x == 0 or y == 0:
+            print("jari sekarang berjumlah ganjil")
+        else: 
+            print("jari salah satu tangan tidak 0")
         return False
 
 # cek pecah2

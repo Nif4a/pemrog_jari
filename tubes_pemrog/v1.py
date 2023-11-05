@@ -1,8 +1,10 @@
 # GAME "jari jawa"
 # rules :
 # terdapat 2 player
-# giliran saling berganti-ganti antara player_1 dan player_2
-# masing-masing player memiliki 2 tangan berbentuk tuple integer (a.b)
+# permainan dilakukan bergilir saling berganti-ganti antara player_1 dan player_2
+# masing-masing player memiliki 2 tangan dengan jumlah jari masing-masing tangan lengkapnya 5(kiri) + 5(kanan) = 10
+# beberapa aturan : permainan dilakukan dengan
+# permainan berakhir ketika salah satu pemain 
 
 from jari import *
 import random
@@ -38,9 +40,6 @@ while isRun:
     if cek0(player_1):
         win1(player_1,player_2)
         isRun = False
-    elif cek0(player_2):
+    if cek0(player_2):
         win2(player_1,player_2)
         isRun = False
-    else:
-        print("ga mungkin juga nih")
-        
