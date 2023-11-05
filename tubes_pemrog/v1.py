@@ -11,7 +11,7 @@ import random
 player_1 = (1,1)
 player_2 = (1,1)
 gilir = random.randint(1,2)
-print(f"player {giliran} bisa memulai permainan duluan")    
+print(f"player {gilir} bisa memulai permainan duluan")    
 
 isRun = True
 while isRun:
