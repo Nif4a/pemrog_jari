@@ -38,7 +38,9 @@ while isRun:
     if cek0(player_1):
         win1(player_1,player_2)
         isRun = False
-    if cek0(player_2):
+    elif cek0(player_2):
         win2(player_1,player_2)
         isRun = False
+    else:
+        print("ga mungkin juga nih")
         
