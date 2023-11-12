@@ -15,7 +15,7 @@
 # ketika salah satu tangan berjari 0 dan tangan yang lain berjumlah jari genap maka bisa melakukan "pecah" yakni yang awalnya [2,0] --> [1,1] atau [0,4] --> [2,2] dan pecah hanya bisa dilakukan saat mendapat giliran (memakai giliran) 
 # permainan berakhir ketika salah satu pemain kedua tangannya jumlah jarinya 0, maka pemain yg jumlah jarinya 0 tsb yg memenangkan game ini
 
-from jari import *
+from modul_jari import *
 import random
 
 # inisiasi nilai jari awal masing-masing player adalah 1
