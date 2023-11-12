@@ -34,6 +34,8 @@ while isRun:
         dx += move
     if keys[pygame.K_SPACE]:
         isJump = True
+    if keys[pygame.K_ESCAPE]:
+        isRun = False
     
     
     pygame.draw.rect(screen, (255, 0, 0), (dx, dy, width, height))

@@ -144,6 +144,10 @@ def inputan(player,player2):
             while cek3:
                 jarioutput = input('pilih jari lawan "R/L": ')
                 cek3 = cektujuan(player2,jarioutput)
+                if jarioutput != "R":
+                    if jarioutput != "L":
+                        print("Anda mungkin typo, silahkan coba lagi")
+                        cek3 = True
                 cek = True
             return (jariinput,jarioutput)
         elif jariinput == "P":
