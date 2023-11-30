@@ -6,19 +6,19 @@ class Jari():
         self.iMage = iMage
         self.rect = self.iMage.get_rect()
         self.rect.topleft = (x,y)
-        self.clicked = False
     
     def draw_jari(self, screen):
         aksi = False
-        
+        clicked = False
         # posisi mouse
         posisi = pygame.mouse.get_pos()
-        if self.rect.collidepoint(posisi):
-            if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
-                self.clicked = True
+        if self.rect.collidepoint(posisi):     
+            if pygame.mouse.get_pressed()[0] == 1 and clicked == False:
+                clicked = True
                 aksi = True
+
         if pygame.mouse.get_pressed()[0] == 0:
-            self.clicked = False
+            clicked = False
         
         # draw jari di screen
         screen.blit(self.iMage, (self.rect.x, self.rect.y))
@@ -47,6 +47,7 @@ class JariJawa():
         
         # draw gambar
         jari1 = pygame.image.load('gambar/Jari1Kiri.jpg').convert()
+        self.jari1 = jari1
         #self.layar.blit(jari1, (400,200))
                              
         # draw teks ke layar
@@ -55,9 +56,7 @@ class JariJawa():
         self.layar.blit(teks, (560,10))
         
         # draw jari
-        tombol_jari1 = Jari(400, 200, jari1)
-        if tombol_jari1.draw_jari(self.layar) == True:
-            print("OK")
+
             
         #draw teks posisi
         teks2 = self.custom_font.render(str(self.posisi), True, self.hitam)
@@ -68,13 +67,17 @@ class JariJawa():
           
         
     def isi_event(self):
-        for event in pygame.event.get():
+        for event in pygame.event.get():    
             if event.type == pygame.QUIT:
                 self.isRun = False      
-        
-        self.klik_kiri = pygame.mouse.get_pressed()[0]
-        self.klik_kanan = pygame.mouse.get_pressed()[2]
-        self.posisi = pygame.mouse.get_pos()        
+
+            tombol_jari1 = Jari(400, 200, self.jari1)
+            if self.tombol_jari1.draw_jari(self.layar) == True:
+                print("tertekan")
+
+            self.klik_kiri = pygame.mouse.get_pressed()[0]
+            self.klik_kanan = pygame.mouse.get_pressed()[2]
+            self.posisi = pygame.mouse.get_pos()        
     
     
     def run(self):
