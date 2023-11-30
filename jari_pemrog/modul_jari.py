@@ -156,10 +156,28 @@ def inputan(player,player2):
             print("Anda mungkin typo, silahkan coba lagi")
     return ("P","P")
 
+def inputan2(player,player2,kiri,kanan):
+    cek = False
+    while cek == False:
+        jariinput = input('pilih jari "R/L" atau pecah "P": ')
+        cek2 = sisa(player,jariinput)
+        if (jariinput == "R" or jariinput == "L") and cek2 == False:            
+            cek3 = True
+            while cek3:
+                jarioutput = input('pilih jari lawan "R/L": ')
+                cek3 = cektujuan(player2,jarioutput)
+                cek = True
+            return (jariinput,jarioutput)
+        elif jariinput == "P":
+            cek = cekpecah(player)
+        elif cek2 == False:
+            print("Anda mungkin typo, silahkan coba lagi")
+    return ("P","P")
+
 def win1(p1,p2):
     print("\n\n## ## ## ## ##")
     status(p1,p2)
-    print("selamat player 1 memenangkan game")
+    print("selamat player 1 memenangkan game")   
 
 def win2(p1,p2):
     print("\n\n## ## ## ## ##")
