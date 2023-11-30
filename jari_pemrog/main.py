@@ -1,6 +1,7 @@
 import pygame
 from modul_jari import *
 pygame.init()
+pygame.mixer.init()
 
 # declare warna
 putih = (255, 255, 255)
@@ -15,11 +16,17 @@ custom_font = pygame.font.Font('font/pixely[1].ttf', 24)
 jari_kiri = [pygame.image.load('gambar/1_kiri.png'),pygame.image.load('gambar/2_kiri.png'),pygame.image.load('gambar/3_kiri.png'),pygame.image.load('gambar/4_kiri.png')]
 jari_kanan = [pygame.image.load('gambar/1_kanan.png'),pygame.image.load('gambar/2_kanan.png'),pygame.image.load('gambar/3_kanan.png'),pygame.image.load('gambar/4_kanan.png')]
 bandung = pygame.image.load('gambar/bandung.png')
+bg = pygame.image.load('gambar/bg.png')
 
 # tampilan screen
 panjang_layar, lebar_layar = 800, 450
 layar = pygame.display.set_mode((panjang_layar, lebar_layar))
 pygame.display.set_caption("Jari Jawa v1")
+
+# audio 
+pygame.mixer.music.load('audio/bgm.mp3')
+pygame.mixer.music.set_volume(1)
+pygame.mixer.music.play()
 
 # init variabel
 tertekan = False
@@ -76,7 +83,7 @@ isRun = True
 while isRun:
 
     # init layar
-    layar.fill(abu)
+    layar.blit(pygame.transform.scale(bg,(800,450)), (0,0))
     posisi = pygame.mouse.get_pos()
     a,b = bacaJari(player1)
     c,d = bacaJari(player2)
@@ -93,6 +100,8 @@ while isRun:
     # draw
     #teks = custom_font.render(str(posisi), True, hitam)
     #layar.blit(teks,(10,10))
+    teks = custom_font.render("JariJawa",True,putih)
+    layar.blit(teks, (10,10))
     
     # draw
     # jari kiri
@@ -101,25 +110,22 @@ while isRun:
         layar.blit(Transform(jari_kiri[a]), (200,240))
         print("A")
         kiri = True
-    else:
-        pygame.time.delay(40)
-        layar.blit(Transform(jari_kiri[a]), (200,250))
-    # jari kiri false
-    if TertekanLuar(Transform(jari_kiri[a]),(x-200,y-250)) and kiri == True:
-        print("A2")
-        kiri = False
-    
-    # jari kanan
-    if Tertekan(Transform(jari_kanan[b]),(x-400,y-250)):
+    elif Tertekan(Transform(jari_kanan[b]),(x-400,y-250)):
         layar.blit(Transform(jari_kanan[b]), (400,240))
         print("B")
         kanan = True
     else:
-        pygame.time.delay(40)
+        pygame.time.delay(75)
+        layar.blit(Transform(jari_kiri[a]), (200,250))
         layar.blit(Transform(jari_kanan[b]), (400,250))
-    if TertekanLuar(Transform(jari_kanan[b]),(x-400,y-250)) and kanan == True:
-        print("B2")
-        kanan = False
+        # jari kiri false
+        if TertekanLuar(Transform(jari_kiri[a]),(x-200,y-250)) and kiri == True:
+            print("A2")
+            kiri = False
+        # jari kanan false
+        if TertekanLuar(Transform(jari_kanan[b]),(x-400,y-250)) and kanan == True:
+            print("B2")
+            kanan = False
     
     print(kiri,kanan)
     
