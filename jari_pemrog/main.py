@@ -37,7 +37,9 @@ kanan = False
 gilir = 1
 
 
-    
+def flipimg(gambar):
+    gambar = pygame.transform.flip(gambar, True, False)
+    return gambar
     
 def bacaJari(player):
     x,y = player
@@ -91,7 +93,11 @@ while isRun:
     # event
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            pygame.mixer.music.stop()
             isRun = False
+    
+    layar.blit(Transform(bandung),(0,50))
+    layar.blit(Transform(flipimg(bandung)),(600,50))
     
     # draw
     layar.blit(Transform(rotate(jari_kiri[a])),(200,0))
