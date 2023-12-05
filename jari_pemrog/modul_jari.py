@@ -1,3 +1,29 @@
+import pygame
+putih = (255, 255, 255)
+hitam = (0, 0, 0)
+birumuda = (100,149,237)
+abu = (120,120,120)
+
+# bagian pygame
+def flipimg(gambar):
+    gambar = pygame.transform.flip(gambar, True, False)
+    return gambar
+    
+def bacaJari(player):
+    x,y = player
+    return x,y
+
+def rotate(gambar):
+    sudut = 180
+    gambar = pygame.transform.rotate(gambar, sudut)
+    return gambar
+    
+def Transform(gambar):
+    ukuran = (200,200)
+    gambar = pygame.transform.scale(gambar, ukuran)
+    return gambar
+
+
 # fungsi cek kemenangan
 def cek0(player):
     x,y = player
@@ -68,6 +94,13 @@ def status(player1,player2):
  [{c} {d}]
 --------""") 
 
+def status2(player1,player2,layar,jkir,jkan):
+    a,b = player1; c,d = player2
+    layar.blit(Transform(rotate(jkir[c])),(200,0))
+    layar.blit(Transform(rotate(jkan[d])),(400,0))
+    layar.blit(Transform(jkan[a]),(200,250))
+    layar.blit(Transform(jkan[b]),(400,250))
+    
 # cek giliran 
 def giliran(angka):
     if angka == 1:
@@ -75,6 +108,11 @@ def giliran(angka):
     if angka == 2:
         print("\n## giliran player 2 ##")
 
+def giliran2(angka,layar,font):
+    teks = font.render("giliran player "+str(angka), True, hitam)
+    layar.blit(teks, (10,10))
+    
+    
 # masukan dari lain
 def masukan0(nilai,playermain,playerlawan):
     x,y = nilai

@@ -1,3 +1,5 @@
+from modul_jari import *
+import random
 # ... (existing code)
 
 def minimax(player_main, player_lawan, is_maximizing, depth):
@@ -20,7 +22,7 @@ def minimax(player_main, player_lawan, is_maximizing, depth):
             min_eval = min(min_eval, eval)
         return min_eval
 
-def generate_moves(player_main, player_lawan):
+def generate_moves():
     moves = []
     for i in ["R", "L", "P"]:
         for j in ["R", "L"]:

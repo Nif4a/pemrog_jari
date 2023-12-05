@@ -13,8 +13,8 @@ abu = (120,120,120)
 custom_font = pygame.font.Font('font/pixely[1].ttf', 24)
 
 # upload gambar
-jari_kiri = [pygame.image.load('gambar/1_kiri.png'),pygame.image.load('gambar/2_kiri.png'),pygame.image.load('gambar/3_kiri.png'),pygame.image.load('gambar/4_kiri.png')]
-jari_kanan = [pygame.image.load('gambar/1_kanan.png'),pygame.image.load('gambar/2_kanan.png'),pygame.image.load('gambar/3_kanan.png'),pygame.image.load('gambar/4_kanan.png')]
+jari_kiri = [pygame.image.load('gambar/0_kiri.png'),pygame.image.load('gambar/1_kiri.png'),pygame.image.load('gambar/2_kiri.png'),pygame.image.load('gambar/3_kiri.png'),pygame.image.load('gambar/4_kiri.png')]
+jari_kanan = [pygame.image.load('gambar/0_kanan.png'),pygame.image.load('gambar/1_kanan.png'),pygame.image.load('gambar/2_kanan.png'),pygame.image.load('gambar/3_kanan.png'),pygame.image.load('gambar/4_kanan.png')]
 bandung = pygame.image.load('gambar/bandung.png')
 bg = pygame.image.load('gambar/bg.png')
 
@@ -43,7 +43,7 @@ def flipimg(gambar):
     
 def bacaJari(player):
     x,y = player
-    return x-1,y-1
+    return x,y
 
 def rotate(gambar):
     sudut = 180
@@ -124,13 +124,14 @@ while isRun:
         pygame.time.delay(75)
         layar.blit(Transform(jari_kiri[a]), (200,250))
         layar.blit(Transform(jari_kanan[b]), (400,250))
-        # jari kiri false
-        if TertekanLuar(Transform(jari_kiri[a]),(x-200,y-250)) and kiri == True:
-            print("A2")
+        if Tertekan(Transform(rotate(jari_kiri[a])),(x-200,y)):
+            c = c+a
+        if Tertekan(Transform(rotate(jari_kanan[b])),(x-400,y)):
+            d = d+a           
+        # jari kiri dan kanan false
+        if TertekanLuar(Transform(jari_kiri[a]),(x-200,y-250)) or TertekanLuar(Transform(jari_kanan[b]),(x-400,y-250)):
+            print("AB")
             kiri = False
-        # jari kanan false
-        if TertekanLuar(Transform(jari_kanan[b]),(x-400,y-250)) and kanan == True:
-            print("B2")
             kanan = False
     
     print(kiri,kanan)
