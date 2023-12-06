@@ -178,9 +178,29 @@ def masukan0(nilai,playermain,playerlawan):
     
     return ((a,b),(c,d))
 
-def reset_masukan():
+def konversiMasukan(varInput):
+    if varInput == (True,False,False):
+        return "R"
+    elif varInput == (False,True,False):
+        return "L"
+    elif varInput == (False,False,True):
+        return "P"
+    else:
+        return "B" # random variabel selain R,L, and P
+    
+def konversiTujuan(varInput):
+    if varInput == (True,False):
+        return "R"
+    elif varInput == (False,True):
+        return "L"
+    else:
+        return "B" # random variabel selain R dan L 
+        
+def reset():
     var = (False,False,False)
-    return var
+    var2 = (False,False)
+    return var,var2
+
 
 # cek sisa jari masukan
 def sisa(player,jari):
@@ -204,6 +224,13 @@ def sisa_2(player,jari,font,warna,screen):
         return True
     else:
         return False
+
+def sisa_2_2(player,var,font,warna,screen):
+    masukan = konversiMasukan(var)
+    if sisa_2(player,masukan,font,warna,screen):
+        return False
+    else:
+        return True
     
 def cektujuan(player,nilai):
     x,y = player
@@ -226,7 +253,14 @@ def cektujuan_2(player,nilai,font,warna,screen):
         return True
     else:
         return False 
-      
+
+def cektujuan_2_2(player,var,font,warna,screen):
+    masukan = konversiTujuan(var)
+    if cektujuan_2(player,masukan,font,warna,screen):
+        return False
+    else:
+        return True
+    
 # masukan player
 def masukan(playermain,playerlawan,masukan,tujuan):
     a,b = playermain; c,d = playerlawan
@@ -246,6 +280,18 @@ def masukan(playermain,playerlawan,masukan,tujuan):
     c,d = lebih5((c,d))
     return (c,d)
 
+def cekVarMasukan(var):
+    if var == (False,False,False):
+        return False
+    else:
+        return True
+
+def cekVarTujuan(var):
+    if var == (False,False):
+        return False
+    else:
+        return True
+    
 # proses input
 def inputan(player,player2):
     cek = False
@@ -269,12 +315,46 @@ def inputan(player,player2):
             print("Anda mungkin typo, silahkan coba lagi")
     return ("P","P")
 
-def inputan2(player,player2,font,warna,screen):
-    keys = pygame.key.get_pressed()
+def inputan_2(player,font,warna,screen,key):
     if cekpecah_2(player):
-        drawTeks("pilih tanganmu atau pecah",font,warna,130,400,screen)        
+        drawTeks("pilih tanganmu atau pecah",font,warna,130,400,screen)
+        if key[pygame.K_r]:
+            var = (True,False,False)
+            valid = sisa_2_2(player,var,font,warna,screen)            
+        elif key[pygame.K_l]:
+            var = (False,True,False)
+            valid = sisa_2_2(player,var,font,warna,screen)
+        elif key[pygame.K_p]:
+            var = (False,False,True)
+            valid = True
+        else:
+            var =(False,False,False)
+            valid = False
     else:
         drawTeks("pilih tanganmu",font,warna,130,400,screen)
+        if key[pygame.K_r]:
+            var = (True,False,False)
+            valid = sisa_2_2(player,var,font,warna,screen)
+        elif key[pygame.K_l]:
+            var = (False,True,False)
+            valid = sisa_2_2(player,var,font,warna,screen)
+        else:
+            var = (False,False,False)
+            valid = False
+    return (var,valid)
+
+def tujuan_2(player2,font,warna,screen,key):
+    drawTeks("pilih tangan lawan",font,warna,130,400,screen)
+    if key[pygame.K_r]:
+        var = (True,False,False)
+        valid = cektujuan_2_2(player2,var,font,warna,screen)
+    elif key[pygame.K_l]:
+        var = (False,True,False)
+        valid = cektujuan_2_2(player2,var,font,warna,screen)
+    else:
+        var = (False,False,False)
+        valid = False
+    return (var,valid)
 
 def ubahGilir(gilir):
     if gilir == 1:
@@ -286,17 +366,19 @@ def ubahGilir(gilir):
 def win1(p1,p2):
     print("\n\n## ## ## ## ##")
     status(p1,p2)
-    print("selamat player 1 memenangkan game")   
+    print("selamat player 2 memenangkan game")   
 
 def win2(p1,p2):
     print("\n\n## ## ## ## ##")
     status(p1,p2)
-    print("selamat player 2 memenangkan game")
+    print("selamat player 1 memenangkan game")
 
 def win1_2(p1,p2,font,warna,screen):
     status_2(p1,p2)
-    drawTeks("SELAMAT PLAYER 1 MEMENANGKAN GAME",font,warna,130,185,screen)
+    drawTeks("SELAMAT PLAYER 2 MEMENANGKAN GAME",font,warna,130,185,screen)
+    pygame.display.update()
 
 def win2_2(p1,p2,font,warna,screen):
     status_2(p1,p2)
-    drawTeks("SELAMAT PLAYER 2 MEMENANGKAN GAME",font,warna,130,185,screen)
+    drawTeks("SELAMAT PLAYER 1 MEMENANGKAN GAME",font,warna,130,185,screen)
+    pygame.display.update()

@@ -150,7 +150,6 @@ while isRun:
     if cek0(player1):
         win1 = custom_font.render("selamat player 1 memenangkan permainan",True,putih)
         layar.blit(win1,(20,20))
-        isRun = False
     if cek0(player2):
         win2 = custom_font.render("selamat player 2 memenangkan permainan",True,putih)
         layar.blit(win2,(20,20))

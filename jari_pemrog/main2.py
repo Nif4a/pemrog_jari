@@ -49,6 +49,7 @@ while isJalan:
         gilir = random.randint(1,2)
         player_1 = (1,1); player_2 = (1,1)
         varMasukan = (False,False,False)  #(kanan,kiri,pecah)
+        varTujuan = (False,False)
         
         while isRun:
             layar.blit(pygame.transform.scale(bg,(800,450)), (0,0))
@@ -56,40 +57,84 @@ while isJalan:
             layar.blit(Transform(flipimg(bandung)),(600,50))
             
             if diff == "player":
+                keys = pygame.key.get_pressed()
                 giliran_2(gilir,layar,font_jawa)    
                 status_2(player_1,player_2,layar,jari_kiri,jari_kanan)
                 
                 pygame.display.update()
                 
+                
                 # proses game
                 if gilir == 1:
-                    inputan2(player_1,player_2,custom_font,putih,layar)
-                    nilai = inputan(player_1,player_2)
-                    player_1,player_2 = masukan0(nilai,player_1,player_2)
-                    gilir = 2
+                    if cekVarMasukan(varMasukan):
+                        # mekanisme tujuan
+                        temp = tujuan_2(player_2,custom_font,putih,layar,keys)
+                        varTujuan = temp[0]
+                        valid2 = temp[1]
+                        if valid2:
+                            nilai = (konversiMasukan(varMasukan),konversiTujuan(varTujuan))
+                            player_1,player_2 = masukan0(nilai,player_1,player_2)
+                            varMasukan,varTujuan = reset()
+                            gilir = 2
+                        else:
+                            varTujuan = (False,False)
+                    else:
+                        # mekanisme masukan
+                        temp = inputan_2(player_1,custom_font,putih,layar,keys)
+                        varMasukan = temp[0]
+                        valid = temp[1]
+                        if valid:
+                            if varMasukan == (False,False,True):
+                                nilai = ("P","B")
+                                player_1,player_2 = masukan0(nilai,player_1,player_2)
+                                varMasukan,varTujuan = reset()
+                                gilir = 2
+                        else:
+                            varMasukan = (False,False,False)                 
                 elif gilir == 2:
-                    inputan2(player_2,player_1,custom_font,putih,layar)
-                    nilai = inputan(player_2,player_1)
-                    player_2,player_1 = masukan0(nilai,player_2,player_1)
-                    gilir = 1    
+                    if cekVarMasukan(varMasukan):
+                        # mekanisme tujuan
+                        temp = tujuan_2(player_1,custom_font,putih,layar,keys)
+                        varTujuan = temp[0]
+                        valid2 = temp[1]
+                        if valid2:
+                            nilai = (konversiMasukan(varMasukan),konversiTujuan(varTujuan))
+                            player_2,player_1 = masukan0(nilai,player_2,player_1)
+                            varMasukan,varTujuan = reset()
+                            gilir = 1
+                        else:
+                            varTujuan = (False,False)
+                    else:
+                        # mekanisme masukan
+                        temp = inputan_2(player_2,custom_font,putih,layar,keys)
+                        varMasukan = temp[0]
+                        valid = temp[1]
+                        if valid:
+                            if varMasukan == (False,False,True):
+                                nilai = ("P","B")
+                                player_2,player_1 = masukan0(nilai,player_2,player_1)
+                                varMasukan,varTujuan = reset()
+                                gilir = 1
+                        else:
+                            varMasukan = (False,False,False)  
                 else:
                     print("ga mungkin else ga sih")
                 
                 # cek kemenangan
                 if cek0(player_1):
-                    win1(player_1,player_2)
+                    win1_2(player_1,player_2,custom_font,putih,layar)
                     isRun = False
                 if cek0(player_2):
-                    win2(player_1,player_2)
+                    win2_2(player_1,player_2,custom_font,putih,layar)
                     isRun = False          
-               
+                if keys[pygame.K_ESCAPE]:
+                    isRun = False
+                               
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     isRun = False
+                    isJalan = False
             
-            # interface player
-            pygame.display.update()
-    
     else:
         # check masuk menu / tidak
         if isMenu == True:
