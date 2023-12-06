@@ -41,7 +41,7 @@ diff = "menu"
 # game loop
 while isJalan:
     
-    layar.fill(birumuda)
+    layar.fill(abu)
     
     # cek main menu
     if main:
