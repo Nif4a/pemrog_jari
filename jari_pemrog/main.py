@@ -13,10 +13,10 @@ abu = (120,120,120)
 custom_font = pygame.font.Font('font/pixely[1].ttf', 24)
 
 # upload gambar
-jari_kiri = [pygame.image.load('gambar/0_kiri.png'),pygame.image.load('gambar/1_kiri.png'),pygame.image.load('gambar/2_kiri.png'),pygame.image.load('gambar/3_kiri.png'),pygame.image.load('gambar/4_kiri.png')]
-jari_kanan = [pygame.image.load('gambar/0_kanan.png'),pygame.image.load('gambar/1_kanan.png'),pygame.image.load('gambar/2_kanan.png'),pygame.image.load('gambar/3_kanan.png'),pygame.image.load('gambar/4_kanan.png')]
-bandung = pygame.image.load('gambar/bandung.png')
-bg = pygame.image.load('gambar/bg.png')
+jari_kiri = [pygame.image.load('images/0_kiri.png'),pygame.image.load('images/1_kiri.png'),pygame.image.load('images/2_kiri.png'),pygame.image.load('images/3_kiri.png'),pygame.image.load('images/4_kiri.png')]
+jari_kanan = [pygame.image.load('images/0_kanan.png'),pygame.image.load('images/1_kanan.png'),pygame.image.load('images/2_kanan.png'),pygame.image.load('images/3_kanan.png'),pygame.image.load('images/4_kanan.png')]
+bandung = pygame.image.load('images/bandung.png')
+bg = pygame.image.load('images/bg.png')
 
 # tampilan screen
 panjang_layar, lebar_layar = 800, 450

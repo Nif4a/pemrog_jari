@@ -22,87 +22,108 @@ import pygame
 pygame.init()
 pygame.mixer.init()
 
-# declare warna
-putih = (255, 255, 255)
-hitam = (0, 0, 0)
-birumuda = (100,149,237)
-abu = (120,120,120)
-
-# font
-custom_font = pygame.font.Font('font/pixely[1].ttf', 24)
-font_jawa = pygame.font.Font('font/kemasyuran_jawa.ttf', 24)
-
-# upload gambar
-jari_kiri = [pygame.image.load('gambar/0_kiri.png'),pygame.image.load('gambar/1_kiri.png'),pygame.image.load('gambar/2_kiri.png'),pygame.image.load('gambar/3_kiri.png'),pygame.image.load('gambar/4_kiri.png')]
-jari_kanan = [pygame.image.load('gambar/0_kanan.png'),pygame.image.load('gambar/1_kanan.png'),pygame.image.load('gambar/2_kanan.png'),pygame.image.load('gambar/3_kanan.png'),pygame.image.load('gambar/4_kanan.png')]
-bandung = pygame.image.load('gambar/bandung.png')
-bg = pygame.image.load('gambar/bg.png')
-
 # tampilan screen menu
 panjang_layar, lebar_layar = 800, 450
 layar = pygame.display.set_mode((panjang_layar, lebar_layar))
-pygame.display.set_caption("Jari Jawa menu")
-
-# tampilan screen main
-panjang_layar, lebar_layar = 800, 450
-layar = pygame.display.set_mode((panjang_layar, lebar_layar))
-pygame.display.set_caption("Jari Jawa v1")
+pygame.display.set_caption("Jari Jawa")
 
 # audio 
 pygame.mixer.music.load('audio/bgm.mp3')
 pygame.mixer.music.set_volume(1)
 pygame.mixer.music.play()
 
-# inisiasi nilai jari awal masing-masing player adalah 1
-player_1 = (1,1)
-player_2 = (1,1)
-gilir = random.randint(1,2)
+# game variabel
+isMenu = False
 isJalan = True
+main = False
+diff = "menu"
+
+# game loop
 while isJalan:
     
-    isRun = True
-    while isRun:
+    layar.fill(birumuda)
+    
+    # cek main menu
+    if main:
+        isRun = True
+        gilir = random.randint(1,2)
+        player_1 = (1,1); player_2 = (1,1)
+        varMasukan = (False,False,False)  #(kanan,kiri,pecah)
         
-        layar.blit(pygame.transform.scale(bg,(800,450)), (0,0))
-        layar.blit(Transform(bandung),(0,50))
-        layar.blit(Transform(flipimg(bandung)),(600,50))
-        
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.mixer.music.stop()
-                isRun = False
-        
-        # interface player
-        giliran2(gilir,layar,font_jawa)
-        status2(player_1,player_2,layar,jari_kiri,jari_kanan)
-        
-        pygame.display.flip()
-        pygame.display.update()
-        
-        # proses game
-        
-        if gilir == 1:
-            nilai = inputan(player_1,player_2)
-            player_1,player_2 = masukan0(nilai,player_1,player_2)
-            gilir = 2
+        while isRun:
+            layar.blit(pygame.transform.scale(bg,(800,450)), (0,0))
+            layar.blit(Transform(bandung),(0,50))
+            layar.blit(Transform(flipimg(bandung)),(600,50))
             
-        elif gilir == 2:
-            nilai = inputan(player_2,player_1)
-            player_2,player_1 = masukan0(nilai,player_2,player_1)
-            gilir = 1    
-        
+            if diff == "player":
+                giliran_2(gilir,layar,font_jawa)    
+                status_2(player_1,player_2,layar,jari_kiri,jari_kanan)
+                
+                pygame.display.update()
+                
+                # proses game
+                if gilir == 1:
+                    inputan2(player_1,player_2,custom_font,putih,layar)
+                    nilai = inputan(player_1,player_2)
+                    player_1,player_2 = masukan0(nilai,player_1,player_2)
+                    gilir = 2
+                elif gilir == 2:
+                    inputan2(player_2,player_1,custom_font,putih,layar)
+                    nilai = inputan(player_2,player_1)
+                    player_2,player_1 = masukan0(nilai,player_2,player_1)
+                    gilir = 1    
+                else:
+                    print("ga mungkin else ga sih")
+                
+                # cek kemenangan
+                if cek0(player_1):
+                    win1(player_1,player_2)
+                    isRun = False
+                if cek0(player_2):
+                    win2(player_1,player_2)
+                    isRun = False          
+               
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    isRun = False
+            
+            # interface player
+            pygame.display.update()
+    
+    else:
+        # check masuk menu / tidak
+        if isMenu == True:
+            layar.blit(scaling(tombol,2), (300,50))
+            layar.blit(scaling(tombol,2), (50,250))
+            layar.blit(scaling(tombol,2), (300,250))
+            layar.blit(scaling(tombol,2), (550,250))
+            drawTeks("Tekan esc untuk keluar permainan",custom_font,putih,130,400,layar)
+            if keys[pygame.K_p]:
+                isMenu = False
+                diff = "player"; main = True
+            if keys[pygame.K_1]:
+                isMenu = False
+                diff = "easy"; main = False
+            if keys[pygame.K_2]:
+                isMenu = False
+                diff = "medium"; main = False
+            if keys[pygame.K_3]:
+                isMenu = False
+                diff = "hard"; main = False
+            if keys[pygame.K_ESCAPE]:
+                isJalan = False
+            
         else:
-            print("ga mungkin else ga sih")
-        
-        # cek kemenangan
-        if cek0(player_1):
-            win1(player_1,player_2)
-            isRun = False
-        if cek0(player_2):
-            win2(player_1,player_2)
-            isRun = False
-        
-        pygame.display.flip()
-        pygame.display.update()
+            drawTeks("TEKAN SPASI UNTUK MELANJUTKAN", custom_font, putih, 130, 185, layar)
+
+    # pengatur event
+    for event in pygame.event.get():
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE]:
+            isMenu = True
+        if event.type == pygame.QUIT:
+            isJalan = False
+    
+    pygame.display.update()
     
 pygame.quit()
