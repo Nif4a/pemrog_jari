@@ -382,3 +382,48 @@ def win2_2(p1,p2,font,warna,screen):
     status_2(p1,p2)
     drawTeks("SELAMAT PLAYER 1 MEMENANGKAN GAME",font,warna,130,185,screen)
     pygame.display.update()
+
+# bagian AI
+
+def evaluasi(player, lawan):
+    x_player, y_player = player
+    x_lawan, y_lawan = lawan
+
+    # Contoh evaluasi sederhana, bisa diubah sesuai kebutuhan
+    eval_player = x_player + y_player
+    eval_lawan = x_lawan + y_lawan
+
+    return eval_player - eval_lawan
+
+def minmax(player, lawan, depth, maximizingPlayer):
+    if depth == 0 or cek0(player) or cek0(lawan):
+        return evaluasi(player, lawan)
+
+    if maximizingPlayer:
+        maxEval = float('-inf')
+        for a in ["R", "L"]:
+            for b in ["R", "L"]:
+                next_player = masukan(player, lawan, a, b)
+                eval = minmax(next_player, lawan, depth - 1, False)
+                maxEval = max(maxEval, eval)
+        return maxEval
+    else:
+        minEval = float('inf')
+        for a in ["R", "L"]:
+            for b in ["R", "L"]:
+                next_lawan = masukan(lawan, player, a, b)
+                eval = minmax(player, next_lawan, depth - 1, True)
+                minEval = min(minEval, eval)
+        return minEval
+
+def bestMove(player, lawan):
+    bestVal = float('-inf')
+    bestMove = None
+    for a in ["R", "L"]:
+        for b in ["R", "L"]:
+            next_player = masukan(player, lawan, a, b)
+            moveVal = minmax(next_player, lawan, 2, False)  # depth bisa diatur sesuai keinginan (2 untuk contoh)
+            if moveVal > bestVal:
+                bestMove = (a, b)
+                bestVal = moveVal
+    return bestMove
