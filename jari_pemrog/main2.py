@@ -138,10 +138,10 @@ while isJalan:
     else:
         # check masuk menu / tidak
         if isMenu == True:
-            layar.blit(scaling(tombol,2), (300,50))
-            layar.blit(scaling(tombol,2), (50,250))
-            layar.blit(scaling(tombol,2), (300,250))
-            layar.blit(scaling(tombol,2), (550,250))
+            layar.blit(scaling(Transform2(tombol2[0]),2), (300,50))
+            layar.blit(scaling(Transform2(tombol2[1]),2), (50,250))
+            layar.blit(scaling(Transform2(tombol2[2]),2), (300,250))
+            layar.blit(scaling(Transform2(tombol2[3]),2), (550,250))
             drawTeks("Tekan esc untuk keluar permainan",custom_font,putih,130,400,layar)
             if keys[pygame.K_p]:
                 isMenu = False

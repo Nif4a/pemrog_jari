@@ -18,6 +18,7 @@ jari_kanan = [pygame.image.load('images/0_kanan.png'),pygame.image.load('images/
 bandung = pygame.image.load('images/bandung.png')
 bg = pygame.image.load('images/bg.png')
 tombol = pygame.image.load('images/tombol.jpg')
+tombol2 = [pygame.image.load('images/start.png'),pygame.image.load('images/easy.png'),pygame.image.load('images/medium.png'),pygame.image.load('images/hard.png'),pygame.image.load('images/back.png')]
 
 # bagian pygame
 def flipimg(gambar):
@@ -35,6 +36,11 @@ def rotate(gambar):
     
 def Transform(gambar):
     ukuran = (200,200)
+    gambar = pygame.transform.scale(gambar, ukuran)
+    return gambar
+
+def Transform2(gambar):
+    ukuran = (100,50)
     gambar = pygame.transform.scale(gambar, ukuran)
     return gambar
 
