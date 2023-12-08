@@ -1,6 +1,7 @@
 import pygame
 pygame.init()
 
+#################################################################################################
 # warna
 putih = (255, 255, 255)
 hitam = (0, 0, 0)
@@ -77,7 +78,8 @@ class Tombol():
         # draw tombol pada screen
         screen.blit(self.gambar, (self.rect.x, self.rect.y))
         return aksi
-    
+
+###########################################################################################
 # fungsi cek kemenangan
 def cek0(player):
     x,y = player

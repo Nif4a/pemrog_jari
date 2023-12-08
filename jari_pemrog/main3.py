@@ -34,66 +34,62 @@ pygame.mixer.music.set_volume(1)
 pygame.mixer.music.play()
 
 # inisiasi nilai jari awal masing-masing player adalah 1
-player_1 = (1,1)
-player_2 = (1,1)
+player_1 = (1,1); player_2 = (1,1)
 gilir = random.randint(1,2)
 isJalan = True
-
 ai_level = "medium"
 
-while isJalan:
+isRun = True
+while isRun:
     
-    isRun = True
-    while isRun:
-        
-        layar.blit(pygame.transform.scale(bg,(800,450)), (0,0))
-        layar.blit(Transform(bandung),(0,50))
-        layar.blit(Transform(flipimg(bandung)),(600,50))
-        
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.mixer.music.stop()
-                isRun = False
-        
-        # interface player
-        giliran_2(gilir,layar,font_jawa)
-        status_2(player_1,player_2,layar,jari_kiri,jari_kanan)
-        
-        pygame.display.flip()
-        pygame.display.update()
-        
-        # proses game
-        
-        if gilir == 1:  # Giliran AI
-            if ai_level == "easy":
-                ai_input = random.choice(["R", "L"])
-                ai_output = random.choice(["R", "L"])
-            elif ai_level == "medium":
-                ai_input, ai_output = bestMove(player_1, player_2)
-            elif ai_level == "hard":
-                # Implementasi Minimax dengan depth yang lebih dalam
-                ai_input, ai_output = bestMove(player_1, player_2)
+    layar.blit(pygame.transform.scale(bg,(800,450)), (0,0))
+    layar.blit(Transform(bandung),(0,50))
+    layar.blit(Transform(flipimg(bandung)),(600,50))
+    
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.mixer.music.stop()
+            isRun = False
+    
+    # interface player
+    giliran_2(gilir,layar,font_jawa)
+    status_2(player_1,player_2,layar,jari_kiri,jari_kanan)
+    
+    pygame.display.flip()
+    pygame.display.update()
+    
+    # proses game
+    
+    if gilir == 1:  # Giliran AI
+        if ai_level == "easy":
+            ai_input = random.choice(["R", "L"])
+            ai_output = random.choice(["R", "L"])
+        elif ai_level == "medium":
+            ai_input, ai_output = bestMove(player_1, player_2)
+        elif ai_level == "hard":
+            # Implementasi Minimax dengan depth yang lebih dalam
+            ai_input, ai_output = bestMove(player_1, player_2)
 
-            print(f"AI sedang memikirkan langkahnya...")
-            time.sleep(2)  # Tambahkan delay 2 detik
-            print(f"AI memilih jari {ai_input} untuk dimasukkan pada tangan lawan dengan jari {ai_output}")
-            player_1, player_2 = masukan0((ai_input, ai_output), player_1, player_2)
-            gilir = 2
-            
-        elif gilir == 2:  # Giliran manusia
-            nilai = inputan(player_2, player_1)
-            player_2, player_1 = masukan0(nilai, player_2, player_1)
-            gilir = 1
+        print(f"AI sedang memikirkan langkahnya...")
+        time.sleep(2)  # Tambahkan delay 2 detik
+        print(f"AI memilih jari {ai_input} untuk dimasukkan pada tangan lawan dengan jari {ai_output}")
+        player_1, player_2 = masukan0((ai_input, ai_output), player_1, player_2)
+        gilir = 2
         
-        # cek kemenangan
-        if cek0(player_1):
-            win1(player_1,player_2)
-            isRun = False
-        if cek0(player_2):
-            win2(player_1,player_2)
-            isRun = False
-        
-        pygame.display.flip()
-        pygame.display.update()
+    elif gilir == 2:  # Giliran manusia
+        nilai = inputan(player_2, player_1)
+        player_2, player_1 = masukan0(nilai, player_2, player_1)
+        gilir = 1
     
+    # cek kemenangan
+    if cek0(player_1):
+        win1(player_1,player_2)
+        isRun = False
+    if cek0(player_2):
+        win2(player_1,player_2)
+        isRun = False
+    
+    pygame.display.flip()
+    pygame.display.update()
+
 pygame.quit()
